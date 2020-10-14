@@ -1,11 +1,12 @@
-package com.kotlin.blogspot
+package com.kotlin.blogspot.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kotlin.blogspot.R
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_authxml)
+        setContentView(R.layout.activity_auth)
     }
 }
