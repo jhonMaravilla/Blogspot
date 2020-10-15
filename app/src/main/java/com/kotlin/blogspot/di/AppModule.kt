@@ -5,17 +5,38 @@ import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.kotlin.blogspot.R
 import com.kotlin.blogspot.persistence.AccountPropertiesDao
 import com.kotlin.blogspot.persistence.AppDatabase
 import com.kotlin.blogspot.persistence.AppDatabase.Companion.DATABASE_NAME
 import com.kotlin.blogspot.persistence.AuthTokenDao
+import com.kotlin.blogspot.util.Constants
+import com.kotlin.blogspot.util.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule{
+class AppModule {
+
+    @Singleton
+    @Provides
+    fun providesGsonBuilder(): Gson {
+        return GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofitBuilder(gson: Gson): Retrofit.Builder {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+    }
 
     @Singleton
     @Provides
@@ -48,7 +69,10 @@ class AppModule{
 
     @Singleton
     @Provides
-    fun provideGlideInstance(application: Application, requestOptions: RequestOptions): RequestManager {
+    fun provideGlideInstance(
+        application: Application,
+        requestOptions: RequestOptions
+    ): RequestManager {
         return Glide.with(application)
             .setDefaultRequestOptions(requestOptions)
     }
