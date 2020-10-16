@@ -24,7 +24,7 @@ class LoginFragment : BaseAuthFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-git a        viewModel.testLogin().observe(viewLifecycleOwner, Observer { response ->
+        viewModel.testLogin().observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is GenericApiResponse.ApiSuccessResponse -> {
                     Log.d(TAG, "onViewCreated: ${response.body}")
