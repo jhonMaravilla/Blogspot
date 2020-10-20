@@ -26,7 +26,7 @@ class AuthModule {
         sessionManager: SessionManager,
         authTokenDao: AuthTokenDao,
         accountPropertiesDao: AccountPropertiesDao,
-        openApiAuthService: OpenApiAuthService
+        openApiAuthService: OpenApiAuthService,
     ): AuthRepository {
         return AuthRepository(
             authTokenDao,

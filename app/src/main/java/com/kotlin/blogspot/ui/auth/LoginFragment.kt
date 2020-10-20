@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.kotlin.blogspot.R
+import com.kotlin.blogspot.model.AuthToken
 import com.kotlin.blogspot.ui.auth.state.LoginFields
 import kotlinx.android.synthetic.main.fragment_login.*
 

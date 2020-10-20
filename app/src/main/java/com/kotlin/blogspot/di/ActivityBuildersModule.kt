@@ -5,6 +5,7 @@ import com.kotlin.blogspot.di.auth.AuthModule
 import com.kotlin.blogspot.di.auth.AuthScope
 import com.kotlin.blogspot.di.auth.AuthViewModelModule
 import com.kotlin.blogspot.ui.auth.AuthActivity
+import com.kotlin.blogspot.ui.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -18,5 +19,12 @@ abstract class ActivityBuildersModule {
         ]
     )
     abstract fun contributeAuthActivity(): AuthActivity
+
+    @ContributesAndroidInjector(
+        modules = [
+
+        ]
+    )
+    abstract fun contributeMainActivity(): MainActivity
 
 }
