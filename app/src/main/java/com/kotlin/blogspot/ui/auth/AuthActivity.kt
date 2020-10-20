@@ -6,7 +6,10 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kotlin.blogspot.R
+import com.kotlin.blogspot.model.AuthToken
 import com.kotlin.blogspot.ui.BaseActivity
+import com.kotlin.blogspot.ui.ResponseType
+import com.kotlin.blogspot.ui.ResponseType.*
 import com.kotlin.blogspot.ui.main.MainActivity
 import com.kotlin.blogspot.viewmodels.ViewModelProviderFactory
 import javax.inject.Inject
@@ -29,9 +32,49 @@ class AuthActivity : BaseActivity() {
 
     fun subscribeObserver() {
 
+        // ViewState or Data
         viewModel.viewState.observe(this, Observer { viewState ->
             viewState.authToken?.let { authToken ->
                 sessionManager.login(authToken)
+            }
+        })
+
+        // StateEvent or Event Trigerring class
+        viewModel.dataState.observe(this, Observer { dataState ->
+
+            dataState.data?.let { data ->
+
+                data.data?.let { event ->
+
+                    event.getContentIfNotHandled()?.let { viewState ->
+                        viewState.authToken?.let { authToken ->
+                            viewModel.setAuthToken(authToken)
+                        }
+                    }
+
+                }
+
+                data.response?.let { event ->
+                    event.getContentIfNotHandled()?.let { response ->
+
+                        when (response.responseType) {
+                            is Dialog -> {
+
+                            }
+
+                            is Toast -> {
+
+                            }
+
+                            is None -> {
+
+                            }
+                        }
+
+
+                    }
+                }
+
             }
         })
 
