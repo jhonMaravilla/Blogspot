@@ -73,7 +73,7 @@ constructor(
     }
 
 
-    fun isConnnectedToTheInternet(): Boolean {
+    fun isConnectedToTheInternet(): Boolean {
         var result = false
 
         val connectivityManager =
