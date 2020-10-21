@@ -10,7 +10,6 @@ import com.kotlin.blogspot.ui.auth.AuthActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,6 +32,10 @@ class MainActivity : BaseActivity() {
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun displayProgressBar(bool: Boolean) {
+        TODO("Not yet implemented")
     }
 
 }

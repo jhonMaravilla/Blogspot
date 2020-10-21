@@ -3,6 +3,7 @@ package com.kotlin.blogspot.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -15,6 +16,7 @@ import com.kotlin.blogspot.ui.ResponseType
 import com.kotlin.blogspot.ui.ResponseType.*
 import com.kotlin.blogspot.ui.main.MainActivity
 import com.kotlin.blogspot.viewmodels.ViewModelProviderFactory
+import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
 
 
@@ -23,6 +25,7 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
     lateinit var viewModel: AuthViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +49,8 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
         // StateEvent or Event Trigerring class
         viewModel.dataState.observe(this, Observer { dataState ->
 
+            onDataStateChange(dataState)
+
             dataState.data?.let { data ->
 
                 data.data?.let { event ->
@@ -57,28 +62,6 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
                     }
 
                 }
-
-                data.response?.let { event ->
-                    event.getContentIfNotHandled()?.let { response ->
-
-                        when (response.responseType) {
-                            is Dialog -> {
-
-                            }
-
-                            is Toast -> {
-
-                            }
-
-                            is None -> {
-
-                            }
-                        }
-
-
-                    }
-                }
-
             }
         })
 
@@ -90,6 +73,14 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
             }
 
         })
+    }
+
+    override fun displayProgressBar(bool: Boolean) {
+        if (!bool){
+            progress_bar.visibility = View.INVISIBLE
+        } else {
+            progress_bar.visibility = View.VISIBLE
+        }
     }
 
     private fun navigateToMainActivity() {
